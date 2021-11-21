@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TabBar from '../../components/TabBar/index';
 
 import HomeScreen from './Home/index'
-import InfoScreen from './Info/index';
+import InfoScreen from './Info/index2';
 import ContactScreen from './Contact/index';
 
 const TabStack = createBottomTabNavigator();
