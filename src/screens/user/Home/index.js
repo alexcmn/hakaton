@@ -109,28 +109,28 @@ const ExpandableComponent = ({ item, onClickHandler, openModalHandler }) => {
                         }}
                     >
                         <View style={styles.tab_modal_wrapp}>
-                            <TouchableOpacity style={styles.tab_modal_btn} onPress={openModalHandler}>
+                            <TouchableOpacity style={styles.tab_modal_btn} onPress={() => openModalHandler(false)}>
                                 <Image source={require('../../../../assets/images/paper.png')} />
                                 <Text>Nalazi</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.tab_modal_btn} onPress={openModalHandler}>
-                                <Image source={require('../../../../assets/images/paper.png')} />
+                            <TouchableOpacity style={styles.tab_modal_btn} onPress={() => openModalHandler(true)}>
+                                <Image source={require('../../../../assets/images/pill.png')} />
                                 <Text>Ljekovi</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.tab_modal_wrapp}>
-                            <TouchableOpacity style={styles.tab_modal_btn} onPress={openModalHandler}>
+                            <TouchableOpacity style={styles.tab_modal_btn} onPress={() => openModalHandler(false)}>
                                 <Image source={require('../../../../assets/images/advice.png')} />
                                 <Text>Savjeti</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.tab_modal_btn} onPress={openModalHandler}>
+                            <TouchableOpacity style={styles.tab_modal_btn} onPress={() => openModalHandler(false)}>
                                 <Image source={require('../../../../assets/images/hand.png')} />
                                 <Text>Nuspojave</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.tab_modal_wrapp}>
-                            <TouchableOpacity style={styles.tab_modal_btn} onPress={openModalHandler}>
-                                <Image source={require('../../../../assets/images/paper.png')} />
+                            <TouchableOpacity style={styles.tab_modal_btn} onPress={() => openModalHandler(false)}>
+                                <Image source={require('../../../../assets/images/institution.png')} />
                                 <Text>Institucije</Text>
                             </TouchableOpacity>
                         </View>
@@ -145,6 +145,7 @@ export default function Home() {
 
     const [modalVisible, setModalVisible] = useState(false);
     const [accordionData, setAccordionData] = useState(accordion);
+    const [isPill, setIsPill] = useState(false)
 
     if (Platform.OS === 'android') {
         UIManager.setLayoutAnimationEnabledExperimental(true)
@@ -163,6 +164,11 @@ export default function Home() {
         setAccordionData(arr)
     }
 
+    const openModalHandler = (isPillTrue) => {
+        setModalVisible(!modalVisible)
+        setIsPill(isPillTrue && isPillTrue);
+    }
+
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={styles.container}>
@@ -177,8 +183,8 @@ export default function Home() {
                                         onClickHandler={() => {
                                             updateLayout(idx)
                                         }}
-                                        openModalHandler={() => {
-                                            setModalVisible(!modalVisible)
+                                        openModalHandler={(isPillTrue) => {
+                                            openModalHandler(isPillTrue)
                                         }}
                                     />
                                 )
@@ -189,9 +195,7 @@ export default function Home() {
                         animationType="slide"
                         transparent={true}
                         visible={modalVisible}
-                        onRequestClose={() => {
-                            setModalVisible(!modalVisible)
-                        }}
+                        onRequestClose={() => setModalVisible(!modalVisible)}
                     >
                         <View style={styles.modal}>
                             <TouchableOpacity
@@ -213,7 +217,24 @@ export default function Home() {
                                     borderTopWidth: 1,
                                     paddingVertical: 20
                                 }}>
-                                <Text>Kompletna dokumentacija o sadašnjoj bolesti: • otpusna lista i PH nalaz ukoliko je predhodila operacija • UZ gornjeg abdomena, RTG srca I pluća, drugi postojeći nalazi • dokumentacija ako je lečenje započeto u drugoj zdravstvenoj ustanovi • Odluka Onkološke komisije o daljem načinu lečenja • KKS, ŠUK, urea, kreatinin, ukupni proteini, albumini, bilirubin ukupni i direktni, AST, ALT, GGT, ALKP, LDH, Na, K, Ca, Cl, P, anti HCV i HBs Ag • EHO srca, EKG, mišljenje kardiologa o podobnosti primene hemioterapije • Krvna grupa i Rh faktor Svi navedeni laboratorijski nalazi, osim krvne grupe i Rh faktora , ne mogu se uvažiti ako su stariji od dve nedelje. Na dan sprovođenja hemioterapije potrebno je doručkovati i ako imate terapiju za neku od hroničnih bolesti popiti svoje lekove. Poneti svu traženu i navedenu dokumentaciju.</Text>
+                                {
+                                    isPill ?
+                                        <View>
+                                            <View style={{ marginBottom: 20 }}>
+                                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: 10 }}>
+                                                    <Image source={require('../../../../assets/images/pill.png')} style={{ width: 30, height: 30, marginRight: 20 }} />
+                                                    <Text>Paracetamol</Text>
+                                                </View>
+                                                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                                                    <Image source={require('../../../../assets/images/pill.png')} style={{ width: 30, height: 30, marginRight: 20 }} />
+                                                    <Text>Aspirin</Text>
+                                                </View>
+                                            </View>
+                                            <Text>Kompletna dokumentacija o sadašnjoj bolesti: • otpusna lista i PH nalaz ukoliko je predhodila operacija • UZ gornjeg abdomena, RTG srca I pluća, drugi postojeći nalazi • dokumentacija ako je lečenje započeto u drugoj zdravstvenoj ustanovi • Odluka Onkološke komisije o daljem načinu lečenja • KKS, ŠUK, urea, kreatinin, ukupni proteini, albumini, bilirubin ukupni i direktni, AST, ALT, GGT, ALKP, LDH, Na, K, Ca, Cl, P, anti HCV i HBs Ag • EHO srca, EKG, mišljenje kardiologa o podobnosti primene hemioterapije • </Text>
+                                        </View>
+                                        :
+                                        <Text>Kompletna dokumentacija o sadašnjoj bolesti: • otpusna lista i PH nalaz ukoliko je predhodila operacija • UZ gornjeg abdomena, RTG srca I pluća, drugi postojeći nalazi • dokumentacija ako je lečenje započeto u drugoj zdravstvenoj ustanovi • Odluka Onkološke komisije o daljem načinu lečenja • KKS, ŠUK, urea, kreatinin, ukupni proteini, albumini, bilirubin ukupni i direktni, AST, ALT, GGT, ALKP, LDH, Na, K, Ca, Cl, P, anti HCV i HBs Ag • EHO srca, EKG, mišljenje kardiologa o podobnosti primene hemioterapije • Krvna grupa i Rh faktor Svi navedeni laboratorijski nalazi, osim krvne grupe i Rh faktora , ne mogu se uvažiti ako su stariji od dve nedelje. Na dan sprovođenja hemioterapije potrebno je doručkovati i ako imate terapiju za neku od hroničnih bolesti popiti svoje lekove. Poneti svu traženu i navedenu dokumentaciju.</Text>
+                                }
                             </View>
                         </View>
                     </Modal>
@@ -302,16 +323,16 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingLeft: 20
     },
-    tab_modal_wrapp:{
-        flexDirection: 'row', 
-        alignItems: 'center', 
-        justifyContent: 'center',  
+    tab_modal_wrapp: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
         width: width - 80,
         marginBottom: 10
     },
     tab_modal_btn: {
         width: (width - 80) / 2,
-        alignItems: 'center', 
+        alignItems: 'center',
         justifyContent: 'center',
         padding: 10
     }

@@ -19,10 +19,10 @@ export default function Login({ navigation }) {
             />
             <View style={styles.btn_wrapp}>
                 <TouchableOpacity style={styles.btn} onPress={() => redirectTo('usMain')}>
-                    <Text style={styles.text}>Login as User</Text>
+                    <Text style={styles.text}>Uloguj se kao pacijent</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.btn} onPress={() => redirectTo('docMain')}>
-                    <Text style={styles.text}>Login as Doctor</Text>
+                    <Text style={styles.text}>Uloguj se kao doktor</Text>
                 </TouchableOpacity>
             </View>
         </View>

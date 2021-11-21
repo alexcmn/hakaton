@@ -31,7 +31,7 @@ export default function Info({ navigation }) {
                             <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('infoCategory')}>
                                 <Image source={require('../../../../assets/images/hand.png')} />
                             </TouchableOpacity>
-                            <Text style={styles.btn_text}>Ljekovi</Text>
+                            <Text style={styles.btn_text}>Nuspojave</Text>
                         </View>
                     </View>
                 </View>
