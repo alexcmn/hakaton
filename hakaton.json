@@ -1,0 +1,116 @@
+{
+  "pacijent": {
+    "ime": "",
+    "prezime": "",
+    "godiste": "",
+    "pol": "",
+    "slika": "",
+    "opstina": "", // opstina/grad
+    "doktor": "relacija sa doktorom u tom trenu",
+    "terapija": "relacija sa terapijom (jedna od 5)",
+    "faza": "faza u terapiji",
+    "nalazi": ["relacija sa nalazima koje je pacijent upload-ovao u chat-ovima sa doktorima ili uopsteno"],
+    "konverzacije": ["relacije sa konverzacijama sa doktorima - voditi racuna da samo jedna bude aktivna u jednom trenu"]
+  },
+  "doktor": {
+    "ime": "",
+    "prezime": "",
+    "oblast": "", // specijalizacija ili sl.
+    "slika": "",
+    "institucija": "relacija sa institucijom",
+    "pacijenti": ["relacije sa pacijentima u tom trenu"],
+    "konverzacije": ["relacije sa konverzacijama sa pacijentima - moze biti vise aktivnih u jednom trenu"]
+  },
+  // 5 tipova - prema grupi karcinoma
+  "terapije": { // iliti put
+    "naziv": "",
+    "faze": [
+      {
+        "naziv": "hemoterapija/imunoterapija/...",
+        "alternativniNaziv": "npr Voli sebe",
+        "opis": "kratak ili dug",
+        "ljekovi": ["relacija sa ljekovima"],
+        "pregledi": ["relacija sa potrebnim pregledima u toku terapije"],
+        "nuspojave": {
+          "standardne": [], // ocekivane - opis i njihov tretman
+          "nestandardne": [] // neocekivane - potrebno javiti se doktoru
+        },
+        // Lista savjeta kao FAQ u vidu pitanje-odgovor,
+        // npr. koju hranu izbjegavati,
+        // sta je ocekivano u ovoj fazi terapije, itd
+        // -> Moze se koristiti na vise mjesta kao najcesca pitanja
+        // - Moguce da ce se preklapati po sadrzaju sa nuspojavama ali bolje imati vise sadrzaja pa i ako se duplira
+        "savjeti": [
+          {
+            "naslov": "",
+            "tekst": "",
+            "media": ["relacija sa slikama, pdf-ovima, "]
+          }
+        ]
+      }
+    ]
+  },
+  "lijek": {
+    "ime": "",
+    "opis": "",
+    "upotreba": "", // nacin upotrebe
+    "slika": "", // glavna slika bocice
+    "media": ["relacija sa slikama ili dokumentima koji sluze kao uputstvo ili propratni materijal za lijek - moze biti slika, pdf, jpg, png i sl."],
+    "alternative": ["relacija sa drugim lijekom"],
+    "nuspojave": {
+      "standardne": [], // ocekivane - opis i njihov tretman
+      "nestandardne": [] // neocekivane - potrebno javiti se doktoru
+    }
+  },
+  "pregled": {
+    "naziv": "", // npr. KKS - Kompletna krvna slika
+    "opis": "",
+    "institucije": ["relacija sa institucijama"], // gdje je moguce obaviti/nabaviti test/pregled 
+    // drzavne i zdravstvene institucije
+    "cijena": "", // ukoliko je moguce dati cijenu
+  },
+  "institucija": {
+    "naziv": "",
+    "opis": "",
+    "tip": "kratak opis - tip klinike/ambulante/itd",
+    "lokacija": "", // Koordinate
+    "adresa": "",
+    "drzavna": "true/false",
+    "pregledi": ["relacija sa pregledima/testovima - koji se mogu obaviti"]
+  },
+  // nalaz koji pacijent moze da upload-uje u chat-ovima sa doktorima ili uopsteno
+  "nalaz": {
+    "pacijent": "relacija sa pacijentom",
+    "media": "", // slika, pdf, jpg, png i sl. - vise slika
+    "pregled": "relacija sa pregledom - da priblizi koji je tip nalaza - KKS, hormoni, itd.",
+    "datum": "" // datum obavljenog pregleda - po automatizmu je datum upload-ovanja 
+    // ali pacijent moze sam promijeniti prilikom upload-a ako je nalaz radjen ranije
+  },
+  // Komunikacija izmedju pacijenta i doktora
+  "konverzacija": {
+    "aktivna": "true/false",
+    "pacijent": "relacija sa pacijentom",
+    "doktor": "relacija sa doktorom",
+    "poruke": ["relacije sa porukama"]
+  },
+  "poruka": {
+    "tekst": "",
+    "autor": "relacija pacijent/doktor",
+    "konverzacija": "relacija sa konverzacijom",
+    "nalaz": "relacija sa nalazom koji pacijent moze da upload-uje", // idealno ce pacijent upload-ovati 
+    // bilo koju sliku i prilikom upload-a ce samo odabrati tip tog nalaza, u pozadini ce se odraditi kreiranje
+    // nalaza i vezati relacijom za poruku
+    "timestamp": ""
+  },
+  // Pitanja i odgovori
+  // najuopstenija pitanja i odgovori vezano za karcinom, aplikaciju i koriscenje aplikacije
+  // cilj je da taj ekran prikaze najcesca pitanja u jednom tab-u a da u drugom
+  // ponudi i savjete/pitanja konkretno za fazu terapije u kojoj se pacijent nalazi 
+  // - a moguce u trecem tabu da prikaze sve savjete/pitanja vezano za njegovu cjelokupnu terapiju
+  // - savjeti/pitanja bi se vukli sa drugog mjesta - terapija->faza->savjeti
+  "faq": {
+    "naslov": "",
+    "tekst": "",
+    "media": ["relacija sa slikama, pdf-ovima, "]
+  }
+}
